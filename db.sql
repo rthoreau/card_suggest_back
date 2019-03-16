@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-romainthoreau.alwaysdata.net
--- Generation Time: Aug 12, 2018 at 01:00 AM
+-- Generation Time: Mar 16, 2019 at 10:12 PM
 -- Server version: 10.2.13-MariaDB
--- PHP Version: 7.2.2
+-- PHP Version: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,115 +19,45 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `romainthoreau_codehan`
+-- Database: `romainthoreau_card_suggest`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appli_var`
+-- Table structure for table `cards`
 --
 
-CREATE TABLE `appli_var` (
-  `id_appli_var` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `value` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `appli_var`
---
-
-INSERT INTO `appli_var` (`id_appli_var`, `name`, `value`) VALUES
-(1, 'last_error', '1');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `code`
---
-
-CREATE TABLE `code` (
-  `id_code` int(11) NOT NULL,
-  `id_language` int(11) NOT NULL,
+CREATE TABLE `cards` (
+  `id_card` int(11) NOT NULL,
   `creation_date` datetime NOT NULL DEFAULT current_timestamp(),
   `modification_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `title` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `id_content` int(11) NOT NULL,
-  `params` text NOT NULL,
-  `id_params` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `error`
---
-
-CREATE TABLE `error` (
-  `id_error` int(11) NOT NULL,
-  `message` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `language`
---
-
-CREATE TABLE `language` (
-  `id_language` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL
+  `text` varchar(300) NOT NULL,
+  `author` varchar(50) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `token` varchar(20) NOT NULL,
+  `state` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Indexes for table `appli_var`
+-- Indexes for dumped tables
 --
-ALTER TABLE `appli_var`
-  ADD PRIMARY KEY (`id_appli_var`);
 
 --
--- Indexes for table `code`
+-- Indexes for table `cards`
 --
-ALTER TABLE `code`
-  ADD PRIMARY KEY (`id_code`);
+ALTER TABLE `cards`
+  ADD PRIMARY KEY (`id_card`);
 
 --
--- Indexes for table `error`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `error`
-  ADD PRIMARY KEY (`id_error`);
 
 --
--- Indexes for table `language`
+-- AUTO_INCREMENT for table `cards`
 --
-ALTER TABLE `language`
-  ADD PRIMARY KEY (`id_language`);
-
---
--- AUTO_INCREMENT for table `appli_var`
---
-ALTER TABLE `appli_var`
-  MODIFY `id_appli_var` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `code`
---
-ALTER TABLE `code`
-  MODIFY `id_code` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `error`
---
-ALTER TABLE `error`
-  MODIFY `id_error` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `language`
---
-ALTER TABLE `language`
-  MODIFY `id_language` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `cards`
+  MODIFY `id_card` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

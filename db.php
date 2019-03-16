@@ -11,7 +11,7 @@ function rexec($query, $retour = 'ID'){
     $query = $db->prepare($query);
     $result = $query->execute();
     if (!$result){
-      echo 'Une erreur est survenu !';
+      echo 'Une erreur est survenue !';
     }
     if ('ID') {
       return $db->lastInsertId();

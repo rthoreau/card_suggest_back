@@ -4,15 +4,17 @@ session_start();
 
 require_once 'db_access.php';
 require_once 'db.php';
-require_once 'code.class.php';
-require_once 'language.class.php';
-require_once 'user.class.php';
+require_once 'card.class.php';
 
 function local() {
   return strrpos($_SERVER['HTTP_HOST'], 'localhost') !== false;
 }
 
 function p($val, $defaut = false) {
+  if (empty($val)) {
+    pre($_POST);
+    pre(json_decode(file_get_contents('php://input')));
+  }
   if (isset($_POST[$val])) {
     $r = $_POST[$val];
   }else if (empty($_POST)){
@@ -34,14 +36,18 @@ function e($erreur) {
   $_SESSION['erreur'] = $erreur;
 }
 function san($texte, $rc = false) {
-  return $rc ? nl2br(addslashes($texte)) : addslashes($texte);
+  $texte = $rc ? nl2br(addslashes($texte)) : addslashes($texte);
+  return $texte;
+}
+function san_utf8($texte, $rc = false) {
+  return utf8_encode(san($texte, $rc));
 }
 function uns($texte, $rc = false) {
   return $rc ? stripslashes(str_replace('<br />', "", $texte)) : stripslashes($texte) ;
 }
 
 function check_id($id) {
-  return is_int($id) && $id !== 0;
+  return is_int($id) || (!empty($id) && is_int(intval($id)));
 }
 
 function pre($var) {
@@ -56,8 +62,8 @@ class Proto {
   public $id = '0';
 
   function __construct($id = 0) {
-    $id_name = 'id_' . $this->table_name;
-    $this->id_name = $id_name;
+    $this->id_name = $this->id_name ? $this->id_name : 'id_' . substr($this->table_name, 0, -1);
+    $id_name = $this->id_name;
     $this->setId(intval($id));
     if (check_id($this->$id_name)) {
       $sql = "SELECT * FROM $this->table_name WHERE $this->id_name = " . $this->getId();
